@@ -1,7 +1,7 @@
 import './App.css';
 import { CountryProvider } from './context/CountryContext.tsx';
-import FilterBar from './components/FilterBar.tsx';
 import CountryList from './components/CountryList.tsx';
+import FilterBar from './components/FilterBar/FilterBar.tsx';
 
 function App() {
   return (
