@@ -10,6 +10,6 @@ if (!root) {
 const rootElement = root as HTMLElement;
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
-  </StrictMode>
+      <App />
+  </StrictMode>,
 );

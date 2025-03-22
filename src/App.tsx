@@ -1,8 +1,16 @@
 import './App.css';
+import { CountryProvider } from './context/CountryContext.tsx';
+import FilterBar from './components/FilterBar.tsx';
 
 function App() {
-
-  return <h1>fds</h1>;
+  return (
+    <CountryProvider>
+      <div className="App">
+        <h1>Country Information</h1>
+        <FilterBar />
+      </div>
+    </CountryProvider>
+  );
 }
 
 export default App;
