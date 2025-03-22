@@ -26,10 +26,18 @@ const FilterBar = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <button onClick={() => setSort({ key: 'name', order: 'asc' })}>Sort by Name Asc</button>
-      <button onClick={() => setSort({ key: 'name', order: 'desc' })}>Sort by Name Desc</button>
-      <button onClick={() => setSort({ key: 'population', order: 'asc' })}>Sort by Population Asc</button>
-      <button onClick={() => setSort({ key: 'population', order: 'desc' })}>Sort by Population Desc</button>
+      <button onClick={() => setSort({ key: 'name', order: 'asc' })}>
+        Sort by Name Asc
+      </button>
+      <button onClick={() => setSort({ key: 'name', order: 'desc' })}>
+        Sort by Name Desc
+      </button>
+      <button onClick={() => setSort({ key: 'population', order: 'asc' })}>
+        Sort by Population Asc
+      </button>
+      <button onClick={() => setSort({ key: 'population', order: 'desc' })}>
+        Sort by Population Desc
+      </button>
     </div>
   );
 };
