@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './CountryCard.module.css';
 
 interface Country {
@@ -9,7 +9,7 @@ interface Country {
   region: string;
 }
 
-const CountryCard = ({ country }: { country: Country }) => {
+const CountryCard = React.memo(({ country }: { country: Country }) => {
   const [visited, setVisited] = useState(() => {
     const visitedCountries: string[] = JSON.parse(
       localStorage.getItem('visitedCountries') || '[]'
@@ -47,7 +47,7 @@ const CountryCard = ({ country }: { country: Country }) => {
       </button>
     </li>
   );
-};
+});
 
 CountryCard.displayName = 'CountryCard';
 

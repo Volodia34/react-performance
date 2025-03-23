@@ -1,6 +1,11 @@
-import { useContext, ChangeEvent } from 'react';
+import { useContext, useCallback, ChangeEvent } from 'react';
 import styles from './FilterBar.module.css';
 import { CountryContext } from '../../context/CountryContext.tsx';
+
+type SortState = {
+  key: string;
+  order: string;
+};
 
 const FilterBar = () => {
   const context = useContext(CountryContext);
@@ -11,23 +16,31 @@ const FilterBar = () => {
 
   const { region, search, setRegion, setSearch, setSort } = context;
 
-  const handleRegionChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setRegion(e.target.value);
-  };
+  const handleRegionChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => setRegion(e.target.value),
+    [setRegion]
+  );
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+  const handleSearchChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value),
+    [setSearch]
+  );
 
-  const handleSortKeyChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const key = e.target.value;
-    setSort((prevSort) => ({ ...prevSort, key }));
-  };
+  const handleSortKeyChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const key = e.target.value;
+      setSort((prevSort: SortState) => ({ ...prevSort, key }));
+    },
+    [setSort]
+  );
 
-  const handleSortOrderChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const order = e.target.value;
-    setSort((prevSort) => ({ ...prevSort, order }));
-  };
+  const handleSortOrderChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const order = e.target.value;
+      setSort((prevSort: SortState) => ({ ...prevSort, order }));
+    },
+    [setSort]
+  );
 
   return (
     <div className={styles.filterBar}>

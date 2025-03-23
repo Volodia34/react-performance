@@ -1,56 +1,38 @@
 ## 📊 Performance Profiling
 
-## Testing algorithm
-Change the sorting type from "name" to "population", will compare the optimization of the component FilterBar.tsx.
-
-
-
 This section provides performance analysis of the app **before and after optimizations** using `React.memo`, `useMemo`, and `useCallback`.
 
 ### 🔍 Metrics Overview
 
-| Metric               | Before Optimization          | After Optimization  |
-|----------------------|------------------------------|---------------------|
-| **Commit Duration**  | 2.7s                         | ~28ms               |
-| **Render Duration:** | 25.5ms                       | ~15-20ms (peak)     |
-| **Flame Graph**      |                            |  |
-| **Ranked Chart**     |  |  |
+| Metric               | Before Optimization | After Optimization           |
+|----------------------|------------------|------------------------------|
+| **Render Duration**  | 25.5ms           | 15.2ms ✅                     |
+| **Commit Duration**  | ~25ms            | ~13ms ✅                      |
+| **FilterBar Render** | Not visible      | ✅ 1ms only                   |
+| **CountryList**      | Full rerender    | Partially updated or skipped ✅ |
+| **Update Trigger**   | CountryProvider  | createRoot() ✅               |
+|   Flame Graph   |                  |                              |
+|  Ranked Chart   |                  |                              |
+---
+
+### 🔁 Sorting Interaction: `"name"` → `"population"`
+
+This test interaction simulates a user changing the sorting type, which should only update the relevant parts of the UI.
+
+#### 🔴 Before Optimization
+
+- `CountryList` fully re-rendered even for sort change.
+- `Render Duration:` **25.5ms**
+- Caused by: `CountryProvider` update
+- Flame Graph: 
+- Ranked Chart:
 
 ---
 
-### 🧪 Profiler Screenshots
+#### ✅ After Optimization
 
-#### 🕒 Before Optimization
-
-- **Commit Duration:** 2.7s
-
-- **Render Duration:** 25.5ms
-
-- **Flame Graph:**  
-  ![Flame Graph - Before](./screenshots/flame-before.png)
-
-- **Ranked Chart:**  
-  ![Ranked Chart - Before](./screenshots/ranked-before.png)
-
-- **Interactions:**  
-  ![Interactions - Before](./screenshots/interactions-before.png)
-
----
-
-#### ⚡ After Optimization
-
-- **Commit Duration:**  
-  ![Commit Duration - After](./screenshots/commit-after.png)
-
-- **Render Duration:**  
-  ![Render Duration - After](./screenshots/render-after.png)
-
-- **Flame Graph:**  
-  ![Flame Graph - After](./screenshots/flame-after.png)
-
-- **Ranked Chart:**  
-  ![Ranked Chart - After](./screenshots/ranked-after.png)
-
-- **Interactions:**  
-  ![Interactions - After](./screenshots/interactions-after.png)
-
+- Only relevant components updated (e.g., no re-render of `FilterBar`)
+- `Render Duration:` **15.2ms**
+- Triggered by `createRoot()` (initial render)
+- Flame Graph:
+- Ranked Chart:
