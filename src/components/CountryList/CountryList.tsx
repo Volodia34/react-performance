@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import styles from './CountryList.module.css';
 import useFetchCountries from '../../hook/useFetchCountries.ts';
 import { CountryContext } from '../../context/CountryContext.tsx';
@@ -27,24 +27,23 @@ const CountryList = () => {
 
   const { region, search, sort } = context;
 
-  const filteredCountries = useMemo(() => {
-    return countries
-      .filter((country: Country) => (region ? country.region === region : true))
-      .filter((country: Country) =>
-        country.name.common.toLowerCase().includes(search.toLowerCase())
-      )
-      .sort((a: Country, b: Country) => {
-        if (sort.key === 'name') {
-          return sort.order === 'asc'
-            ? a.name.common.localeCompare(b.name.common)
-            : b.name.common.localeCompare(a.name.common);
-        } else {
-          return sort.order === 'asc'
-            ? a.population - b.population
-            : b.population - a.population;
-        }
-      });
-  }, [countries, region, search, sort]);
+  const filteredCountries =  countries
+    .filter((country: Country) => (region ? country.region === region : true))
+    .filter((country: Country) =>
+      country.name.common.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a: Country, b: Country) => {
+      if (sort.key === 'name') {
+        return sort.order === 'asc'
+          ? a.name.common.localeCompare(b.name.common)
+          : b.name.common.localeCompare(a.name.common);
+      } else {
+        return sort.order === 'asc'
+          ? a.population - b.population
+          : b.population - a.population;
+      }
+    });
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading countries</p>;

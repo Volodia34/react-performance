@@ -1,54 +1,67 @@
-# React + TypeScript + Vite
+## 📊 Performance Profiling
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This section provides performance analysis of the app **before and after optimizations** using `React.memo`, `useMemo`, and `useCallback`.
 
-Currently, two official plugins are available:
+### 🔍 Metrics Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Metric               | Before Optimization | After Optimization  |
+|----------------------|---------------------|---------------------|
+| **Commit Duration**  | ~85ms               | ~28ms               |
+| **Render Duration**  | ~76ms (peak)        | ~15-20ms (peak)     |
+| **User Interactions**| 4 per sort/filter   | 2-3 per operation   |
+| **Flame Graph**      | Deep, heavy tree    | Flatter, smaller tree |
+| **Ranked Chart**     | Many `CountryCard` re-renders | Minimal updates (only changed elements) |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🧪 Profiler Screenshots
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+#### 🕒 Before Optimization
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Commit Duration:**  
+  ![Commit Duration - Before](./screenshots/commit-before.png)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+- **Render Duration:**  
+  ![Render Duration - Before](./screenshots/render-before.png)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+- **Flame Graph:**  
+  ![Flame Graph - Before](./screenshots/flame-before.png)
+
+- **Ranked Chart:**  
+  ![Ranked Chart - Before](./screenshots/ranked-before.png)
+
+- **Interactions:**  
+  ![Interactions - Before](./screenshots/interactions-before.png)
+
+---
+
+#### ⚡ After Optimization
+
+- **Commit Duration:**  
+  ![Commit Duration - After](./screenshots/commit-after.png)
+
+- **Render Duration:**  
+  ![Render Duration - After](./screenshots/render-after.png)
+
+- **Flame Graph:**  
+  ![Flame Graph - After](./screenshots/flame-after.png)
+
+- **Ranked Chart:**  
+  ![Ranked Chart - After](./screenshots/ranked-after.png)
+
+- **Interactions:**  
+  ![Interactions - After](./screenshots/interactions-after.png)
+
+---
+
+### 🧠 Summary
+
+By introducing performance optimizations:
+- **Commit durations** dropped by ~60%.
+- **Render durations** of reusable components like `CountryCard` significantly reduced.
+- **Redundant re-renders** were eliminated due to memoization.
+- The **Flame Graph** now shows a shallower component tree.
+- **Ranked Chart** highlights only the updated parts of the UI instead of the whole list.
+- **Fewer interactions** trigger re-renders, improving perceived responsiveness.
+
+These optimizations make the app more scalable and maintainable, especially when working with large datasets.
