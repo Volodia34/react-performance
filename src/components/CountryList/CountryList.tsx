@@ -27,7 +27,7 @@ const CountryList = () => {
 
   const { region, search, sort } = context;
 
-  const filteredCountries =  countries
+  const filteredCountries = countries
     .filter((country: Country) => (region ? country.region === region : true))
     .filter((country: Country) =>
       country.name.common.toLowerCase().includes(search.toLowerCase())
@@ -43,7 +43,6 @@ const CountryList = () => {
           : b.population - a.population;
       }
     });
-
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading countries</p>;

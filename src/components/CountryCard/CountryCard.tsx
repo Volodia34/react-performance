@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import styles from './CountryCard.module.css';
 
 interface Country {
