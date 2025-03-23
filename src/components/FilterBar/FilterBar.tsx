@@ -2,6 +2,11 @@ import { useContext, useCallback, ChangeEvent } from 'react';
 import styles from './FilterBar.module.css';
 import { CountryContext } from '../../context/CountryContext.tsx';
 
+type SortState = {
+  key: string;
+  order: string;
+};
+
 const FilterBar = () => {
   const context = useContext(CountryContext);
 
@@ -21,8 +26,19 @@ const FilterBar = () => {
     [setSearch]
   );
 
-  const handleSort = useCallback(
-    (key: string, order: 'asc' | 'desc') => () => setSort({ key, order }),
+  const handleSortKeyChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const key = e.target.value;
+      setSort((prevSort: SortState) => ({ ...prevSort, key }));
+    },
+    [setSort]
+  );
+
+  const handleSortOrderChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const order = e.target.value;
+      setSort((prevSort: SortState) => ({ ...prevSort, order }));
+    },
     [setSort]
   );
 
@@ -42,10 +58,15 @@ const FilterBar = () => {
         value={search}
         onChange={handleSearchChange}
       />
-      <button onClick={handleSort('name', 'asc')}>Sort by Name Asc</button>
-      <button onClick={handleSort('name', 'desc')}>Sort by Name Desc</button>
-      <button onClick={handleSort('population', 'asc')}>Sort by Population Asc</button>
-      <button onClick={handleSort('population', 'desc')}>Sort by Population Desc</button>
+      <select onChange={handleSortKeyChange}>
+        <option value="">Sort by</option>
+        <option value="name">Name</option>
+        <option value="population">Population</option>
+      </select>
+      <select onChange={handleSortOrderChange}>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
     </div>
   );
 };

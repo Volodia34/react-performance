@@ -2,16 +2,20 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filterBar select,
 .filterBar input {
-    padding: 5px;
+    padding: 10px;
     font-size: 1em;
-}
-
-.filterBar button {
-    padding: 5px 10px;
-    font-size: 1em;
-    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s;
 }

@@ -1,7 +1,8 @@
 import { useContext, useMemo } from 'react';
-import { CountryContext } from '../context/CountryContext';
-import CountryCard from './CountryCard';
-import useFetchCountries from '../hook/useFetchCountries.ts';
+import styles from './CountryList.module.css'
+import useFetchCountries from '../../hook/useFetchCountries.ts';
+import { CountryContext } from '../../context/CountryContext.tsx';
+import CountryCard from '../CountryCard/CountryCard.tsx';
 
 interface Country {
   cca3: string;
@@ -49,7 +50,7 @@ const CountryList = () => {
   if (error) return <p>Error loading countries</p>;
 
   return (
-    <ul>
+    <ul className={styles.countryList}>
       {filteredCountries.map((country: Country) => (
         <CountryCard key={country.cca3} country={country} />
       ))}

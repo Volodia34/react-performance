@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './CountryCard.module.css';
 
 interface Country {
   cca3: string;
@@ -36,7 +37,7 @@ const CountryCard = React.memo(({ country }: { country: Country }) => {
   };
 
   return (
-    <li>
+    <li className={styles.countryCard}>
       <img src={country.flags.png} alt={`${country.name.common} flag`} />
       <h3>{country.name.common}</h3>
       <p>Population: {country.population}</p>

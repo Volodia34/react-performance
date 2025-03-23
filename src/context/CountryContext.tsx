@@ -6,7 +6,7 @@ interface CountryContextProps {
   sort: { key: string; order: string };
   setRegion: (region: string) => void;
   setSearch: (search: string) => void;
-  setSort: (sort: { key: string; order: string }) => void;
+  setSort: (sort: { key: string; order: string } | ((prevSort: { key: string; order: string }) => { key: string; order: string })) => void;
 }
 
 const CountryContext = createContext<CountryContextProps | undefined>(
