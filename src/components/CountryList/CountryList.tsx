@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import styles from './CountryList.module.css'
+import styles from './CountryList.module.css';
 import useFetchCountries from '../../hook/useFetchCountries.ts';
 import { CountryContext } from '../../context/CountryContext.tsx';
 import CountryCard from '../CountryCard/CountryCard.tsx';
