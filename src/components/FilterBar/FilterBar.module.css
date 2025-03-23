@@ -17,5 +17,6 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
+    color: black;
     transition: border-color 0.3s;
 }
